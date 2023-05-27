@@ -17,15 +17,15 @@ $urlJAX = "https://raw.githubusercontent.com/Jax-Core/JaxCore/master/CoreInstall
 
 function ADMinstall
 {
-    Write-Host -for Green "#    Downloading AutoDarkMode..."
+    Write-Host "Downloading AutoDarkMode..."
     (New-Object System.Net.WebClient).DownloadFile($urlADM, "$env:TMP\adm_10.4b.exe")
-    Write-Host -for Green "#    Installing AutoDarkMode..."
+    Write-Host "Installing AutoDarkMode..."
     Start-Process "$env:TMP\adm_10.4b.exe" -Wait -ArgumentList "/VERYSILENT"
 }
 
 function ADMscripts
 {
-    Write-Host -for Green "#    Installing AutoDarkMode scripts..."
+    Write-Host "Installing AutoDarkMode scripts..."
 
     if (!(Test-Path "$env:APPDATA\AutoDarkMode\ps1")) { mkdir "$env:APPDATA\AutoDarkMode\ps1" | Out-Null }
     (New-Object System.Net.WebClient).DownloadFile($urlPS1, "$env:APPDATA\AutoDarkMode\#script.ps1")
@@ -47,13 +47,15 @@ function ADMscripts
 
 function JaxCoreInstall
 {
-    Write-Host -for Green "#    Installing JaxCore..."
+    Add-Type -AssemblyName PresentationCore,PresentationFramework
+    [void][System.Windows.MessageBox]::Show("Just click continue, select YourFlyouts, enable the module, and exit", "#script installer")
+    Write-Host "Installing JaxCore..."
     Start-Process PowerShell -ArgumentList "-ExecutionPolicy", "Bypass", "-NoExit", "-Command", "iwr -useb $urlJAX | iex"    
 }
 
 function JaxCoreSet
 {
-    Write-Host -for Green "#    Setting up JaxCore W11..."
+    Write-Host "Setting up JaxCore W11..."
 
     #   Check for Rainmeter
     $RainmeterReg = "HKLM:\SOFTWARE\WOW6432Node\Rainmeter"
@@ -102,15 +104,28 @@ function JaxCoreSet
         $text | Set-Content $ini    
     }
 
+    $inc = "$env:APPDATA\JaxCore\InstalledComponents\YourFlyouts\Main\Vars\WIn11.inc"
+    if (Test-Path $inc)
+    {
+        $text = Get-Content $ini
+        $text = $text -replace '(PrimaryOpacity=).*','${1}253'
+        $text = $text -replace '(Width=).*','${1}246'
+        $text = $text -replace '(Scale=).*','${1}1.05'
+        $text = $text -replace '(Blur=).*','${1}None'
+        $text = $text -replace '(BlurCorner=).*','${1}Round'
+        $text = $text -replace '(Border=).*','${1}1'
+        $text | Set-Content $ini    
+    }
+
     . $RainmeterPath !RefreshApp
 }
 
 do {
     Clear-Host
-    Write-Host -for Green "#    1. Install AutoDarkMode"
-    Write-Host -for Green "#    2. Install AutoDarkMode scripts"
-    Write-Host -for Green "#    3. Install JaxCore"
-    Write-Host -for Green "#    4. JaxCore configuration"
+    Write-Host -for Green "    1. Install AutoDarkMode"
+    Write-Host -for Green "    2. Install AutoDarkMode scripts"
+    Write-Host -for Green "    3. Install JaxCore"
+    Write-Host -for Green "    4. JaxCore configuration"
     $kkk = [Console]::ReadKey($true).Key
     switch ($kkk)
     {
