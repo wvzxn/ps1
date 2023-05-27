@@ -48,7 +48,13 @@ function ADMscripts
 function JaxCoreInstall
 {
     Add-Type -AssemblyName PresentationCore,PresentationFramework
-    [void][System.Windows.MessageBox]::Show("Just click continue, select YourFlyouts, enable the module, and exit", "#script installer")
+    $msg = @'
+1. Select Quick Install
+2. Just press Continue
+3. Install YourFlyouts
+4. Open YourFlyouts and press enable
+'@
+    [void][System.Windows.MessageBox]::Show($msg, "#script installer")
     Write-Host "Installing JaxCore..."
     Start-Process PowerShell -ArgumentList "-ExecutionPolicy", "Bypass", "-NoExit", "-Command", "iwr -useb $urlJAX | iex"    
 }
@@ -107,14 +113,14 @@ function JaxCoreSet
     $inc = "$env:APPDATA\JaxCore\InstalledComponents\YourFlyouts\Main\Vars\WIn11.inc"
     if (Test-Path $inc)
     {
-        $text = Get-Content $ini
+        $text = Get-Content $inc
         $text = $text -replace '(PrimaryOpacity=).*','${1}253'
         $text = $text -replace '(Width=).*','${1}246'
         $text = $text -replace '(Scale=).*','${1}1.05'
         $text = $text -replace '(Blur=).*','${1}None'
         $text = $text -replace '(BlurCorner=).*','${1}Round'
         $text = $text -replace '(Border=).*','${1}1'
-        $text | Set-Content $ini    
+        $text | Set-Content $ini c  
     }
 
     . $RainmeterPath !RefreshApp
@@ -122,10 +128,11 @@ function JaxCoreSet
 
 do {
     Clear-Host
-    Write-Host -for Green "    1. Install AutoDarkMode"
-    Write-Host -for Green "    2. Install AutoDarkMode scripts"
-    Write-Host -for Green "    3. Install JaxCore"
-    Write-Host -for Green "    4. JaxCore configuration"
+    Write-Host -for Green "1. Install AutoDarkMode"
+    Write-Host -for Green "2. Install AutoDarkMode scripts"
+    Write-Host -for Green "3. Install JaxCore"
+    Write-Host -for Green "4. JaxCore configuration"
+    Write-Host ""
     $kkk = [Console]::ReadKey($true).Key
     switch ($kkk)
     {
