@@ -111,7 +111,7 @@ do {
     Write-Host -for Green "#    2. Install AutoDarkMode scripts"
     Write-Host -for Green "#    3. Install JaxCore"
     Write-Host -for Green "#    4. JaxCore configuration"
-    $kkk = [Console]::ReadKey($true)
+    $kkk = [Console]::ReadKey($true).Key
     switch ($kkk)
     {
         "D1" { ADMinstall; Pause }
