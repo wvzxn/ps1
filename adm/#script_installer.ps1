@@ -91,10 +91,10 @@ function JaxCoreSet
     }
 
     #   Set Layout
-    $ini = "$env:APPDATA\JaxCore\InstalledComponents\YourFlyouts\@Resources\Vars.inc"
-    if (Test-Path $ini)
+    $inc = "$env:APPDATA\JaxCore\InstalledComponents\YourFlyouts\@Resources\Vars.inc"
+    if (Test-Path $inc)
     {
-        $text = Get-Content $ini
+        $text = Get-Content $inc
         $text = $text -replace '(Media=).*','${1}0'
         $text = $text -replace '(Ani=).*','${1}1'
         $text = $text -replace '(AniDir=).*','${1}Bottom'
@@ -107,7 +107,7 @@ function JaxCoreSet
         $text = $text -replace '(MediaType=).*','${1}Modern'
         $text = $text -replace '(FetchImage=).*','${1}0'
         $text = $text -replace '(Layout=).*','${1}Win11'
-        $text | Set-Content $ini    
+        $text | Set-Content $inc
     }
 
     $inc = "$env:APPDATA\JaxCore\InstalledComponents\YourFlyouts\Main\Vars\WIn11.inc"
@@ -120,7 +120,7 @@ function JaxCoreSet
         $text = $text -replace '(Blur=).*','${1}None'
         $text = $text -replace '(BlurCorner=).*','${1}Round'
         $text = $text -replace '(Border=).*','${1}1'
-        $text | Set-Content $ini c  
+        $text | Set-Content $inc  
     }
 
     . $RainmeterPath !RefreshApp
