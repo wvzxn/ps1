@@ -105,13 +105,13 @@ function JaxCoreSet
     . $RainmeterPath !RefreshApp
 }
 
-$kkk = [Console]::ReadKey($true)
 do {
     Clear-Host
     Write-Host -for Green "#    1. Install AutoDarkMode"
     Write-Host -for Green "#    2. Install AutoDarkMode scripts"
     Write-Host -for Green "#    3. Install JaxCore"
     Write-Host -for Green "#    4. JaxCore configuration"
+    $kkk = [Console]::ReadKey($true)
     switch ($kkk)
     {
         "D1" { ADMinstall; Pause }
