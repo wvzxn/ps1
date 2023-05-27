@@ -7,14 +7,14 @@ $urlJAX = "https://raw.githubusercontent.com/Jax-Core/JaxCore/master/CoreInstall
 Write-Host "Downloading AutoDarkMode..."
 (New-Object System.Net.WebClient).DownloadFile($urlADM, "$env:TMP\adm_10.4b.exe")
 Write-Host "Installing AutoDarkMode..."
-Start-Process "$env:TMP\adm_10.4b.exe" -Wait -Verb runAs -ArgumentList "/SILENT"
+Start-Process "$env:TMP\adm_10.4b.exe" -Wait -Verb runAs -ArgumentList "/VERYSILENT"
 Write-Host "- AutoDarkMode is installed, but you still need to customize it"
 Pause
 
 #   ADM Enable scripts
 Write-Host "Enabling ADM scripts..."
+if (!(Test-Path "$env:APPDATA\AutoDarkMode\ps1")) { mkdir "$env:APPDATA\AutoDarkMode\ps1" | Out-Null }
 (New-Object System.Net.WebClient).DownloadFile($urlPS1, "$env:APPDATA\AutoDarkMode\#script.ps1")
-mkdir "$env:APPDATA\AutoDarkMode\ps1"
 (New-Object System.Net.WebClient).DownloadFile($urlPS1jax, "$env:APPDATA\AutoDarkMode\ps1\jax_w11.ps1")
 @(
     "Enabled: true",
