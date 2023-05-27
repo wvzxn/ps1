@@ -1,6 +1,6 @@
 $urlADM = "https://github.com/AutoDarkMode/AutoDarkModeVersion/releases/download/10.4_migration/AutoDarkModeX_Setup_10.4_BETA_migration_installer.exe"
-$urlPS = "https://raw.githubusercontent.com/wvzxn/ps1/master/CoreInstaller.ps1"
-$urlPSjax = "https://raw.githubusercontent.com/wvzxn/ps1/master/CoreInstaller.ps1"
+$urlPS1 = "https://raw.githubusercontent.com/wvzxn/ps1/master/adm/%23script.ps1"
+$urlPS1jax = "https://raw.githubusercontent.com/wvzxn/ps1/master/adm/jax_w11.ps1"
 $urlJAX = "https://raw.githubusercontent.com/Jax-Core/JaxCore/master/CoreInstaller.ps1"
 
 #   Auto Dark Mode
@@ -13,9 +13,9 @@ Pause
 
 #   ADM Enable scripts
 Write-Host "Enabling ADM scripts..."
-(New-Object System.Net.WebClient).DownloadFile($urlPS, "$env:APPDATA\AutoDarkMode\#script.ps1")
+(New-Object System.Net.WebClient).DownloadFile($urlPS1, "$env:APPDATA\AutoDarkMode\#script.ps1")
 mkdir "$env:APPDATA\AutoDarkMode\ps1"
-(New-Object System.Net.WebClient).DownloadFile($urlPSjax, "$env:APPDATA\AutoDarkMode\ps1\jax_w11.ps1")
+(New-Object System.Net.WebClient).DownloadFile($urlPS1jax, "$env:APPDATA\AutoDarkMode\ps1\jax_w11.ps1")
 @(
     "Enabled: true",
     "Component:",
