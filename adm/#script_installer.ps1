@@ -24,9 +24,9 @@ function ADMinstall
 
 function ADMscripts
 {
-    if (!(Test-Path "$env:APPDATA\AutoDarkMode\ps1")) { mkdir "$env:APPDATA\AutoDarkMode\ps1" | Out-Null }
+    if (!(Test-Path "$env:APPDATA\AutoDarkMode\#ps1")) { mkdir "$env:APPDATA\AutoDarkMode\#ps1" | Out-Null }
     (New-Object System.Net.WebClient).DownloadFile($urlPS1, "$env:APPDATA\AutoDarkMode\#script.ps1")
-    (New-Object System.Net.WebClient).DownloadFile($urlPS1jax, "$env:APPDATA\AutoDarkMode\ps1\jax_w11.ps1")
+    (New-Object System.Net.WebClient).DownloadFile($urlPS1jax, "$env:APPDATA\AutoDarkMode\#ps1\jax_w11.ps1")
     @(
         "Enabled: true",
         "Component:",

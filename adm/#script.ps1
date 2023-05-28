@@ -9,7 +9,7 @@ function RestartExplorer
     $openTabs | ForEach-Object { Start-Process explorer.exe $_ -WindowStyle Minimized }
 }
 
-Get-ChildItem ".\ps1\*.ps1" | ForEach-Object { . "$($_.fullname)" $Theme }
+Get-ChildItem ".\#ps1\*.ps1" | ForEach-Object { . "$($_.fullname)" $Theme }
 
 RestartExplorer
 
