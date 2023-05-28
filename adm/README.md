@@ -23,9 +23,9 @@ ___
 Executes all files in the `.\#ps1\` folder.
 
 ### Best way:
-- **AutoDarkMode**
-- **#script.ps1** in **%APPDATA%\AutoDarkMode\**
-- **Scripts in `.\#ps1` folder**
+- AutoDarkMode
+- **#script.ps1** in `%APPDATA%\AutoDarkMode\`
+- Scripts in `.\#ps1` folder
 
 ### ADM and JaxCore (YourFlyouts2) automatic installation:
 
