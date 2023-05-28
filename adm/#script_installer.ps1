@@ -121,40 +121,24 @@ function JaxCoreSet
     . $RainmeterPath !RefreshApp
 }
 
-Write-Host -for Green "1. Install AutoDarkMode"
-Write-Host -for Green "2. Install AutoDarkMode scripts"
-Write-Host -for Green "3. Install JaxCore"
-Write-Host -for Green "4. JaxCore W11 configuration"
-Write-Host -for Green "Q - Exit"
+Write-Host -for Green "[1] Install AutoDarkMode"
+Write-Host -for Green "[2] Install AutoDarkMode scripts"
+Write-Host -for Green "[3] Install JaxCore"
+Write-Host -for Green "[4] JaxCore W11 configuration"
+Write-Host -for Green "[Q] Exit"
 Write-Host ""
 
 do {
+    Write-Host "Press the button: " -NoNewline
     $kkk = [Console]::ReadKey($true).Key
     switch ($kkk)
     {
-        "D1"
-        {
-            Write-Host "Installing ADM..." -NoNewline
-            ADMinstall
-            Write-Host " | DONE"
-        }
-        "D2"
-        {
-            Write-Host "Installing ADM scripts..." -NoNewline
-            ADMscripts
-            Write-Host " | DONE"
-        }
-        "D3"
-        {
-            Write-Host "Installing JaxCore..." -NoNewline
-            JaxCoreInstall
-            Write-Host " | DONE"
-        }
-        "D4"
-        {
-            Write-Host "Setting up JaxCore W11..." -NoNewline
-            JaxCoreSet
-            Write-Host " | DONE"
-        }
+        "D1" { Write-Host "Installing ADM..." -NoNewline; ADMinstall }
+        "D2" { Write-Host "Installing ADM scripts..." -NoNewline; ADMscripts }
+        "D3" { Write-Host "Installing JaxCore..." -NoNewline; JaxCoreInstall }
+        "D4" { Write-Host "Setting up JaxCore W11..." -NoNewline; JaxCoreSet }
     }
+    if ($kkk -notmatch "D[1-4]") { Write-Host ""; continue }
+    Write-Host " | " -NoNewline
+    Write-Host -for Green "DONE"
 } until ($kkk -eq "Q")
