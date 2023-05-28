@@ -8,7 +8,7 @@ if (!(Test-Path $RainmeterPath)) { return }
 $ini = "$env:APPDATA\JaxCore\InstalledComponents\YourFlyouts\Main\Vars\WIn11.inc"
 $text = Get-Content $ini
 
-$Primary = if ($theme -eq "Dark") { "40,35,40" } else { "230,225,235" }
+$Primary = if ($theme -eq "Dark") { "40,35,42" } else { "230,225,235" }
 $Font = if ($theme -eq "Dark") { "255,255,255" } else { "0,0,0" }
 $Font2 = if ($theme -eq "Dark") { "125,125,125" } else { "150,150,150" }
 
