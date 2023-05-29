@@ -17,16 +17,13 @@ $urlJAX = "https://raw.githubusercontent.com/Jax-Core/JaxCore/master/CoreInstall
 
 function ADMinstall
 {
-    Write-Host "Downloading AutoDarkMode..."
     (New-Object System.Net.WebClient).DownloadFile($urlADM, "$env:TMP\adm_10.4b.exe")
-    Write-Host "Installing AutoDarkMode..."
     Start-Process "$env:TMP\adm_10.4b.exe" -Wait -ArgumentList "/VERYSILENT"
+    Remove-Item "$env:TMP\adm_10.4b.exe"
 }
 
 function ADMscripts
 {
-    Write-Host "Installing AutoDarkMode scripts..."
-
     if (!(Test-Path "$env:APPDATA\AutoDarkMode\ps1")) { mkdir "$env:APPDATA\AutoDarkMode\ps1" | Out-Null }
     (New-Object System.Net.WebClient).DownloadFile($urlPS1, "$env:APPDATA\AutoDarkMode\#script.ps1")
     (New-Object System.Net.WebClient).DownloadFile($urlPS1jax, "$env:APPDATA\AutoDarkMode\ps1\jax_w11.ps1")
@@ -52,17 +49,15 @@ function JaxCoreInstall
 1. Select Quick Install
 2. Just press Continue
 3. Install YourFlyouts
-4. Open YourFlyouts and press enable
+4. Select YourFlyouts module and press Enable
+5. Close JaxCore
 '@
     [void][System.Windows.MessageBox]::Show($msg, "#script installer")
-    Write-Host "Installing JaxCore..."
     Start-Process PowerShell -ArgumentList "-ExecutionPolicy", "Bypass", "-NoExit", "-Command", "iwr -useb $urlJAX | iex"    
 }
 
 function JaxCoreSet
 {
-    Write-Host "Setting up JaxCore W11..."
-
     #   Check for Rainmeter
     $RainmeterReg = "HKLM:\SOFTWARE\WOW6432Node\Rainmeter"
     if (!(Test-Path $RainmeterReg)) { return }
@@ -83,7 +78,7 @@ function JaxCoreSet
     #   Activate Flyouts
     $file = "$env:APPDATA\Rainmeter\Rainmeter.ini"
     $text = Get-Content $file;
-    $line = ($text | Select-String 'flyouts').LineNumber
+    $line = ($text | Select-String '\[YourFlyouts\\Main\]').LineNumber
     if ($line)
     {
         $text[$line] = $text[$line] -replace '(active=).*','${1}1'
@@ -126,19 +121,40 @@ function JaxCoreSet
     . $RainmeterPath !RefreshApp
 }
 
+Write-Host -for Green "1. Install AutoDarkMode"
+Write-Host -for Green "2. Install AutoDarkMode scripts"
+Write-Host -for Green "3. Install JaxCore"
+Write-Host -for Green "4. JaxCore W11 configuration"
+Write-Host -for Green "Q - Exit"
+Write-Host ""
+
 do {
-    Clear-Host
-    Write-Host -for Green "1. Install AutoDarkMode"
-    Write-Host -for Green "2. Install AutoDarkMode scripts"
-    Write-Host -for Green "3. Install JaxCore"
-    Write-Host -for Green "4. JaxCore configuration"
-    Write-Host ""
     $kkk = [Console]::ReadKey($true).Key
     switch ($kkk)
     {
-        "D1" { ADMinstall; Pause }
-        "D2" { ADMscripts; Pause }
-        "D3" { JaxCoreInstall; Pause }
-        "D4" { JaxCoreSet; Pause }
+        "D1"
+        {
+            Write-Host "Installing ADM..." -NoNewline
+            ADMinstall
+            Write-Host " | DONE"
+        }
+        "D2"
+        {
+            Write-Host "Installing ADM scripts..." -NoNewline
+            ADMscripts
+            Write-Host " | DONE"
+        }
+        "D3"
+        {
+            Write-Host "Installing JaxCore..." -NoNewline
+            JaxCoreInstall
+            Write-Host " | DONE"
+        }
+        "D4"
+        {
+            Write-Host "Setting up JaxCore W11..." -NoNewline
+            JaxCoreSet
+            Write-Host " | DONE"
+        }
     }
 } until ($kkk -eq "Q")
