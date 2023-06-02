@@ -2,33 +2,28 @@
 
 ### YourFlyouts2
 
-[**`Link`**](https://raw.githubusercontent.com/wvzxn/ps1/master/adm/jax_w11.ps1)
+[**`Link`**](https://github.com/wvzxn/ps1/raw/master/adm/jaxcore_yf2_w11.ps1)
 
-The script changes the color of the flyout window: `PrimaryColor`, `FontColor`, `FontColor2`.
+1. Install _JaxCore_
+2. Install and Enable _YourFlyouts2_
 
 ### qBittorrent
 
-[**`Link`**](https://raw.githubusercontent.com/wvzxn/ps1/master/adm/qBittorrent_theme.ps1)
+[**`Link`**](https://github.com/wvzxn/ps1/raw/master/adm/qBittorrent.ps1)
 
-**Setup**
 1. Download any dark theme and put somewhere
 2. Open qBittorrent Settings
 3. Select _custom UI Theme_
-4. Disable _qBittorrent in notification area_
+4. Uncheck _Show qBittorrent in notification area_
 
 ___
 
-## About `#script.ps1`
+## About `#script_loader.ps1`
 
-Executes all files in the `.\#ps1\` folder.
+Executes all files in `.\#scripts\`, except those that start with `#`.
 
-### Best way:
-- AutoDarkMode
-- **#script.ps1** in `%APPDATA%\AutoDarkMode\`
-- Scripts in `.\#ps1` folder
-
-### ADM and JaxCore (YourFlyouts2) automatic installation:
+### AutoDarkMode scripts automatic installation:
 
 ```powershell
-. $([scriptblock]::Create((iwr -useb 'https://raw.githubusercontent.com/wvzxn/ps1/master/adm/%23script_installer.ps1')))
+. $([scriptblock]::Create((iwr -useb 'https://github.com/wvzxn/ps1/raw/master/adm/%23script_loader_installer.ps1')))
 ```
