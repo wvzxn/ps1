@@ -33,7 +33,7 @@ if (!(Test-Path "$ADMData\#scripts_loader.ps1"))
         "Enabled: true",
         "Component:",
         "  Scripts:",
-        "  - Name: #script_loader",
+        "  - Name: script_loader",
         "    Command: powershell",
         "    WorkingDirectory: $ADMData",
         "    ArgsLight: [-ExecutionPolicy, Bypass, -File, .\#script_loader.ps1, Light]",
