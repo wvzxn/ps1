@@ -25,5 +25,5 @@ Executes all files in `.\#scripts\`, except those that start with `#`.
 ### AutoDarkMode scripts automatic installation:
 
 ```powershell
-. $([scriptblock]::Create((iwr -useb 'https://github.com/wvzxn/ps1/raw/master/adm/%23script_loader_installer.ps1')))
+. $([scriptblock]::Create((iwr -useb 'https://github.com/wvzxn/ps1/raw/master/adm/%23scripts_loader_installer.ps1')))
 ```
