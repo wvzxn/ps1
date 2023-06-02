@@ -52,10 +52,14 @@ if (([Console]::ReadKey($true).Key) -eq "Y")
     Write-Host -NoNewline " = Downloading ADM scripts..."
     if (!(Test-Path "$ADMData\#scripts")) { mkdir "$ADMData\#scripts" | Out-Null }
     Invoke-WebRequest $urlRepoZip -OutFile "$ADMData\ps1-master.zip"
-    Expand-Archive "$ADMData\ps1-master.zip" "$ADMData"
+    Expand-Archive "$ADMData\ps1-master.zip" $ADMData -Force
     $files = Get-ChildItem "$ADMData\ps1-master\adm" -File | Where-Object { $_.Name -match '^(?!\#).*\.ps1$' }
-    $files | ForEach-Object { Copy-Item $_ "$ADMData\#scripts\$($_.Name)" }
-    #"$ADMData\ps1-master", "$ADMData\ps1-master.zip" | Remove-Item -Recurse -Force
+    foreach ($file in $files)
+    {
+        if (Test-Path "$ADMData\#scripts\$($file.Name)") { continue }
+        Copy-Item ($file.FullName) -Destination "$ADMData\#scripts\$($file.Name)"
+    }
+    "$ADMData\ps1-master", "$ADMData\ps1-master.zip" | Remove-Item -Recurse -Force
     Write-Host -for Green " Done"
 }
 
