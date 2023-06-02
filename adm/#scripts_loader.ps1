@@ -14,7 +14,7 @@ function RestartExplorer
     $openTabs | ForEach-Object { Start-Process explorer.exe $_ -WindowStyle Minimized }
 }
 
-$scripts = Get-ChildItem ".\#scripts\*.ps1" | Where-Object {$_.name -notmatch '^\#.*$'}
+$scripts = Get-ChildItem ".\#scripts\*.ps1" | Where-Object {($_.name -notmatch '^\#.*$') -and (!($_.PSisContainer))}
 foreach ($script in $scripts) { . "$($script.fullname)" $Theme }
 
 RestartExplorer
