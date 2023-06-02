@@ -9,7 +9,6 @@
 $urlADM = "https://github.com/AutoDarkMode/AutoDarkModeVersion/releases/download/10.4_migration/AutoDarkModeX_Setup_10.4_RC2_migration_installer.exe"
 $urlPS1 = "https://github.com/wvzxn/ps1/raw/master/adm/%23script_loader.ps1"
 $urlRepoZip = "https://github.com/wvzxn/ps1/archive/refs/heads/master.zip"
-$urlExtract = "https://gist.githubusercontent.com/wvzxn/8f326deb99c3267ecf741a21fa73becb/raw/ebb82b5257d49f4e35869ff513aa6412a375ed81/ExtractArchive.ps1"
 
 $ADMExe = Join-Path $env:LOCALAPPDATA "Programs\AutoDarkMode\adm-app\AutoDarkModeSvc.exe"
 $ADMData = Join-Path $env:APPDATA "AutoDarkMode"
@@ -52,11 +51,11 @@ if (([Console]::ReadKey($true).Key) -eq "Y")
 {
     Write-Host -NoNewline " = Downloading ADM scripts..."
     if (!(Test-Path "$ADMData\#scripts")) { mkdir "$ADMData\#scripts" | Out-Null }
-    Invoke-WebRequest -useb "$urlExtract" | Invoke-Expression
     Invoke-WebRequest $urlRepoZip -OutFile "$ADMData\ps1-master.zip"
-    ExtractArchive "$ADMData\ps1-master.zip"
-    $files = Get-ChildItem "$ADMData\ps1-master\adm" -File | Where-Object { $_.name -match '^(?!\#).*\.ps1$' }
-    Copy-Item $files "$ADMData\#scripts"
+    Expand-Archive "$ADMData\ps1-master.zip"
+    $files = Get-ChildItem "$ADMData\ps1-master\adm" -File | Where-Object { $_.Name -match '^(?!\#).*\.ps1$' }
+    $files | ForEach-Object { Copy-Item $_ "$ADMData\#scripts\$($_.Name)" }
+    Start-Sleep
     "$ADMData\ps1-master", "$ADMData\ps1-master.zip" | Remove-Item -Recurse -Force
     Write-Host -for Green " Done"
 }
