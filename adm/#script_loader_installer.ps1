@@ -7,7 +7,7 @@
 #    AutoDarkMode | https://github.com/AutoDarkMode/Windows-Auto-Night-Mode
 
 $urlADM = "https://github.com/AutoDarkMode/AutoDarkModeVersion/releases/download/10.4_migration/AutoDarkModeX_Setup_10.4_BETA_migration_installer.exe"
-$urlPS1 = "https://raw.githubusercontent.com/wvzxn/ps1/master/adm/%23script.ps1"
+$urlPS1 = "https://github.com/wvzxn/ps1/raw/master/adm/%23script_loader.ps1"
 
 $ADMExe = Join-Path $env:LOCALAPPDATA "Programs\AutoDarkMode\adm-app\AutoDarkModeSvc.exe"
 $ADMData = Join-Path $env:APPDATA "AutoDarkMode"
@@ -26,20 +26,22 @@ if (!(Test-Path $ADMExe))
 #   #scripts_loader Setup
 if (!(Test-Path "$ADMData\#scripts_loader.ps1"))
 {
+    Write-Host -NoNewline " = Installing ADM scripts_loader..."
     if (!(Test-Path "$ADMData\#scripts")) { mkdir "$ADMData\#scripts" | Out-Null }
-    (New-Object System.Net.WebClient).DownloadFile($urlPS1, "$ADMData\#scripts_loader.ps1")
+    Invoke-WebRequest $urlPS1 -OutFile "$ADMData\#scripts_loader.ps1"
     @(
         "Enabled: true",
         "Component:",
         "  Scripts:",
-        "  - Name: ps1",
+        "  - Name: #script_loader",
         "    Command: powershell",
         "    WorkingDirectory: $ADMData",
-        "    ArgsLight: [-ExecutionPolicy, Bypass, -File, .\#script.ps1, Light]",
-        "    ArgsDark: [-ExecutionPolicy, Bypass, -File, .\#script.ps1, Dark]",
+        "    ArgsLight: [-ExecutionPolicy, Bypass, -File, .\#script_loader.ps1, Light]",
+        "    ArgsDark: [-ExecutionPolicy, Bypass, -File, .\#script_loader.ps1, Dark]",
         "    AllowedSources: [Any]",
         ""
     ) | Set-Content "$ADMData\scripts.yaml"
+    Write-Host -for Green " Done"
 }
 
 return
