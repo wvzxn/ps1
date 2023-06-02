@@ -6,7 +6,7 @@
 #  [Credits]
 #    AutoDarkMode | https://github.com/AutoDarkMode/Windows-Auto-Night-Mode
 
-$urlADM = "https://github.com/AutoDarkMode/AutoDarkModeVersion/releases/download/10.4_migration/AutoDarkModeX_Setup_10.4_BETA_migration_installer.exe"
+$urlADM = "https://github.com/AutoDarkMode/AutoDarkModeVersion/releases/download/10.4_migration/AutoDarkModeX_Setup_10.4_RC2_migration_installer.exe"
 $urlPS1 = "https://github.com/wvzxn/ps1/raw/master/adm/%23script_loader.ps1"
 $urlRepoZip = "https://github.com/wvzxn/ps1/archive/refs/heads/master.zip"
 $urlExtract = "https://gist.githubusercontent.com/wvzxn/8f326deb99c3267ecf741a21fa73becb/raw/ebb82b5257d49f4e35869ff513aa6412a375ed81/ExtractArchive.ps1"
